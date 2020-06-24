@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Headers/>
+        <Headers class="fix-header" />
     </div>
 </template>
 
@@ -18,5 +18,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.fix-header{position:fixed;top:0;}
 </style>

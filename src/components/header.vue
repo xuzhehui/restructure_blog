@@ -52,8 +52,9 @@ export default {
         }
     },
     mounted(){
-        // this.axios.get('http://127.0.0.1:5590/books/search?key=%E7%BC%96%E7%A8%8B&pageIndex=1')
-        // .then(r=>console.log(r))
+        // console.log(this.$store.state)
+        this.axios.get('127.0.0.1:5590/books/search?key=%E7%BC%96%E7%A8%8B&pageIndex=1')
+        .then(r=>console.log(r))
     },
     methods:{
         tag_click(item){
