@@ -5,7 +5,7 @@
             <i-col :sm='{span:20}' :xs='{span:0}'>
                 <div class="pc-header">
                    <div class="header-nav">
-                       <div :class='["pc-item",item.foc ? "pc-item-foc" : ""]' v-for="(item,index) of navigation" :key="index">
+                       <div @click="tag_click(item)" :class='["pc-item",item.foc ? "pc-item-foc" : ""]' v-for="(item,index) of navigation" :key="index">
                            <Icon :type="item.icon" />
                            <span>{{item.title}}</span>
                         </div>
@@ -51,6 +51,16 @@ export default {
             }
         }
     },
+    mounted(){
+        // this.axios.get('http://127.0.0.1:5590/books/search?key=%E7%BC%96%E7%A8%8B&pageIndex=1')
+        // .then(r=>console.log(r))
+    },
+    methods:{
+        tag_click(item){
+            this.navigation.map(e=>e.foc=false)
+            item.foc = true
+        }
+    },
     components:{Login}
 }
 </script>
@@ -61,7 +71,7 @@ export default {
     .pc-header{display: flex;justify-content: space-between;align-items: center;width:100%;
         .header-nav{display: flex;justify-content: space-around;width:90%;cursor:pointer;
             .pc-item{border-bottom:2px solid transparent;padding-bottom:5px;}
-            .pc-item-foc{border-bottom:2px solid #2d8cf0;}
+            .pc-item-foc{border-bottom:2px solid #2d8cf0;color:#2d8cf0;}
         }
         
     }
