@@ -1,8 +1,6 @@
 <template>
     <div>
         <Headers/>
-        <div>请登录</div>
-        <Footer/>
     </div>
 </template>
 
