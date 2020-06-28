@@ -11,7 +11,8 @@
                         </div>
                    </div>
 
-                   <Login/>
+                   <Login v-if="!userInfo.login"/>
+                   <LoggedIn v-if="userInfo.login"/>
                 </div>
                 
             </i-col>
@@ -22,19 +23,24 @@
                     <Dropdown trigger="click">
                         <Icon type="md-reorder" :size='28'></Icon>
                         <DropdownMenu slot="list">
-                            <DropdownItem v-for="(item,index) of navigation" :key="index">{{item.title}}</DropdownItem>
+                            <DropdownItem v-for="(item,index) of navigation" :key="index">
+                                <Icon :type="item.icon" />
+                                <span>{{item.title}}</span>
+                            </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
-                    <Login/>
+                    <Login v-if="!userInfo.login"/>
+                    <LoggedIn v-if="userInfo.login"/>
                 </div>
             </i-col>
-
         </Row>
     </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import Login from './login'
+import LoggedIn from './Loggedin'
 export default {
     data(){
         return {
@@ -44,17 +50,13 @@ export default {
                 {title:'关于',icon:'md-at',foc:false,page:''},
                 {title:'简历',icon:'md-eye',foc:false,page:''},
             ],
-            user_info:{
-                avatar:'',
-                user_name:'小李',
-                type:''//用户权限
-            }
         }
     },
+    computed:{
+        ...mapState(['userInfo'])
+    },
     mounted(){
-        // console.log(this.$store.state)
-        this.axios.get('127.0.0.1:5590/books/search?key=%E7%BC%96%E7%A8%8B&pageIndex=1')
-        .then(r=>console.log(r))
+        console.log(this.userInfo)
     },
     methods:{
         tag_click(item){
@@ -62,7 +64,7 @@ export default {
             item.foc = true
         }
     },
-    components:{Login}
+    components:{Login,LoggedIn}
 }
 </script>
 
