@@ -53,15 +53,24 @@ export default {
                 this.$refs['formParams'].resetFields();
             }
         },
+        userLogin(user){//登录
+            this.axios.post('http://127.0.0.1:5590/user/login',{user_name:user.user,pass_word:user.password})
+            .then(r=>{
+                if(r.success){
+
+                }else{
+
+                }
+            })
+        },
+        userRegisit(user){//注册
+            this.axios.post('http://127.0.0.1:5590/user/regisit',{user_name:user.user,pass_word:user.password})
+            .then(r=>r)
+        },
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    this.axios.post('http://127.0.0.1:5590/user/login',{type:this.type,userName:this.formParams.user,password:this.formParams.password})
-                    .then(r=>{
-                        if(r.success){//登录成功将用户的基本信息放入vuex中
-
-                        }
-                    });
+                    this.type == 1 ? this.userLogin(this.formParams) : this.userRegisit(this.formParams)
                 }
             })
         }

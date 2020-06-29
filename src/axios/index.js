@@ -7,7 +7,7 @@ const instance = axios.create(config)
 // 3. 配置信息
 let config = {
     // 每次请求的协议、IP地址。  设置该配置后，每次请求路径都可以使用相对路径，例如"/admin/login"
-    // baseURL: "http://localhost",
+    // baseURL: "http://127.0.0.1:5590",
     // 请求超时时间
     timeout: 10000,
     // 每次请求携带cookie
@@ -18,7 +18,7 @@ let config = {
 instance.interceptors.response.use(res => {
       if(res.status == 200){
         if(res.data.success){
-            Vue.prototype.$Message.success(res.data.message)
+            // Vue.prototype.$Message.success(res.data.message)
             return res.data
         }else{
             Vue.prototype.$Message.error(res.data.message)
