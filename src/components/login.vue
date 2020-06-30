@@ -53,24 +53,19 @@ export default {
                 this.$refs['formParams'].resetFields();
             }
         },
-        userLogin(user){//登录
-            this.axios.post('http://127.0.0.1:5590/user/login',{user_name:user.user,pass_word:user.password})
+        userLog(user,type){//type 1:登录 2:注册
+            let url = type == 1 ? '/api/user/login' : '/api/user/regisit'
+            this.axios.post(url,{user_name:user.user,pass_word:user.password})
             .then(r=>{
                 if(r.success){
-
-                }else{
-
+                    this.$Message.success(r.message)
                 }
             })
-        },
-        userRegisit(user){//注册
-            this.axios.post('http://127.0.0.1:5590/user/regisit',{user_name:user.user,pass_word:user.password})
-            .then(r=>r)
         },
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    this.type == 1 ? this.userLogin(this.formParams) : this.userRegisit(this.formParams)
+                    this.userLog(this.formParams,this.type)
                 }
             })
         }

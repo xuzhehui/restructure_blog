@@ -1,6 +1,6 @@
 <template>
-    <div class='content'>
-        我是首页
+    <div class="about">
+        关于页面
     </div>
 </template>
 
@@ -10,11 +10,10 @@ export default {
         return {
 
         }
-    },
-    
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-.content{width:100%;height:100%;}
+ 
 </style>

@@ -45,10 +45,10 @@ export default {
     data(){
         return {
             navigation:[
-                {title:'首页',icon:'md-home',foc:true,page:''},
-                {title:'分类',icon:'md-list-box',foc:false,page:''},
-                {title:'关于',icon:'md-at',foc:false,page:''},
-                {title:'简历',icon:'md-eye',foc:false,page:''},
+                {title:'首页',icon:'md-home',foc:true,page:'Home'},
+                {title:'分类',icon:'md-list-box',foc:false,page:'Class'},
+                {title:'关于',icon:'md-at',foc:false,page:'About'},
+                {title:'简历',icon:'md-eye',foc:false,page:'Resume'},
             ],
         }
     },
@@ -62,6 +62,7 @@ export default {
         tag_click(item){
             this.navigation.map(e=>e.foc=false)
             item.foc = true
+            this.$router.push({name:item.page})
         }
     },
     components:{Login,LoggedIn}
@@ -70,7 +71,7 @@ export default {
 
 <style lang="scss" scoped>
 .content{
-    width:100%;padding:10px 0;background:#fff;
+    width:100%;padding:10px 0;background:#fff;position:fixed;top:0;
     .pc-header{display: flex;justify-content: space-between;align-items: center;width:100%;
         .header-nav{display: flex;justify-content: space-around;width:90%;cursor:pointer;
             .pc-item{border-bottom:2px solid transparent;padding-bottom:5px;}

@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <Login/>
+    <Headers class="fix-header" />
+    <router-view style="padding-top:50px;"/>
   </div>
 </template>
 
 <script>
-import Login from './view/home.vue'
+import Headers from './components/header'
 
 export default {
   name: 'App',
   components: {
-    Login
+    Headers
   }
 }
 </script>
