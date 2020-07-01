@@ -1,6 +1,6 @@
 <template>
     <div class='content'>
-        我是首页
+        我是首页1
     </div>
 </template>
 

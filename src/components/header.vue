@@ -76,11 +76,9 @@ export default {
         .header-nav{display: flex;justify-content: space-around;width:90%;cursor:pointer;
             .pc-item{border-bottom:2px solid transparent;padding-bottom:5px;}
             .pc-item-foc{border-bottom:2px solid #2d8cf0;color:#2d8cf0;}
-        }
-        
+        }  
     }
     .mobile-header{display: flex;justify-content: space-between;align-items: center;}
-
 }
 </style>
 
