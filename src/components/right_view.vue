@@ -3,7 +3,7 @@
         <div class='container'>
             <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2723844734,592102403&fm=11&gp=0.jpg" alt="">
             <div>
-                <span>知识就是力量</span>
+                <span>JavaScript</span>
                 <span>记录着成长的每一步足迹</span>
             </div>
         </div>
@@ -43,9 +43,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.right-view{width:100%;height:100%;padding:20px;animation: tolong .5s;
+.right-view{width:100%;height:100%;padding:20px;animation: tolong .3s;
     .container{background:#fff;width:100%;border-radius:5px;display:flex;flex-direction: column;align-items: center;;justify-content:center;padding:20px;
-        img{max-width:200px;max-height:200px;border-radius:50%}
+        img{max-width:140px;max-height:140px;border-radius:50%}
         div{display: flex;flex-direction: column;align-items: center;
             span{padding:5px 0;}
         }

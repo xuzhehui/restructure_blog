@@ -71,7 +71,7 @@ export default {
 
 <style lang="scss" scoped>
 .content{
-    width:100%;padding:10px 0;background:#fff;position:fixed;top:0;
+    width:100%;padding:10px 0;background:#fff;position:fixed;top:0;z-index:99;
     .pc-header{display: flex;justify-content: space-between;align-items: center;width:100%;
         .header-nav{display: flex;justify-content: space-around;width:90%;cursor:pointer;
             .pc-item{border-bottom:2px solid transparent;padding-bottom:5px;}

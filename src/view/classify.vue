@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.classify{width:100%;height:100%;
-    .container{width:100%;height:100%;}
+.classify{width:100%;height:100%;padding:20px;
+    .container{width:100%;height:100%;background:#fff;border-radius:5px;}
 }
 </style>
