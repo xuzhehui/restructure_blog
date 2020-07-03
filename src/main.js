@@ -22,6 +22,8 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+
+
 router.afterEach(route => {
   ViewUI.LoadingBar.finish();
 });

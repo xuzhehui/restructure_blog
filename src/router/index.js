@@ -1,6 +1,11 @@
 import VueRoute from 'vue-router'
 import Vue from 'vue'
 
+const routerPush = VueRoute.prototype.push
+VueRoute.prototype.push = function push(location) {//防止重新加载相同的路由时控制台报错
+  return routerPush.call(this, location).catch(error=> error)
+}
+
 Vue.use(VueRoute)
 
 const routes = [
