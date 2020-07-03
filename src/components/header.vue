@@ -20,10 +20,10 @@
             <!-- mobile -->
             <i-col :xs='{span:24}' :sm='{span:0}'>
                 <div class='mobile-header'>
-                    <Dropdown trigger="click">
+                    <Dropdown trigger="click" @on-click='dropDownTap'>
                         <Icon type="md-reorder" :size='28'></Icon>
-                        <DropdownMenu slot="list">
-                            <DropdownItem v-for="(item,index) of navigation" :key="index">
+                        <DropdownMenu slot="list" >
+                            <DropdownItem v-for="(item,index) of navigation" :key="index" :name='item.page'>
                                 <Icon :type="item.icon" />
                                 <span>{{item.title}}</span>
                             </DropdownItem>
@@ -63,6 +63,9 @@ export default {
             this.navigation.map(e=>e.foc=false)
             item.foc = true
             this.$router.push({name:item.page})
+        },
+        dropDownTap(name){
+            this.$router.push({name:name})
         }
     },
     components:{Login,LoggedIn}

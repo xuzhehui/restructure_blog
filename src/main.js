@@ -16,6 +16,15 @@ Vue.config.productionTip = false
 
 Vue.use(ViewUI);
 
+//配置路由切换进度
+router.beforeEach((to, from, next) => {
+  ViewUI.LoadingBar.start();
+  next();
+});
+
+router.afterEach(route => {
+  ViewUI.LoadingBar.finish();
+});
 
 new Vue({
   router,

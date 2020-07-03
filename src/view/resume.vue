@@ -52,7 +52,7 @@
                         </div>
 
 
-                        <div id='workexperience'>
+                        <!-- <div id='workexperience'>
                             <Stitle title='工作经历'/>
 
                             <Timeline style='margin-top:20px'>
@@ -70,7 +70,7 @@
                                 </TimelineItem>
                                 
                             </Timeline>
-                        </div>
+                        </div> -->
 
                         <div id='Selfdescription'>
                             <Stitle title='自我描述'/>
