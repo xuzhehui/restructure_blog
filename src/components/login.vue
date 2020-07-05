@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     data(){
         return {
@@ -43,6 +44,15 @@ export default {
             }
         }
     },
+    computed:{
+        ...mapState(['userInfo'])
+    },
+    mounted(){
+        let data = sessionStorage.getItem('userInfo');
+        if(data){
+            this.$store.state.userInfo = JSON.parse(data);
+        }
+    },
     methods:{
         showHeader_modal(type){
             this.modal_flag = true;
@@ -58,7 +68,9 @@ export default {
             this.axios.post(url,{user_name:user.user,pass_word:user.password})
             .then(r=>{
                 if(r.success){
-                    this.$Message.success(r.message)
+                    this.$Message.success(r.message);
+                    sessionStorage.setItem('userInfo',JSON.stringify(r.data));
+                    this.$store.state.userInfo = r.data;
                 }
             })
         },

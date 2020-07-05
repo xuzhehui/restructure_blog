@@ -29,7 +29,7 @@ instance.interceptors.response.use(res => {
       }
     },
     // 对于错误响应的处理
-    err => Vue.prototype.$Message.error("网络开小差了,请稍等再试")
+    err => Vue.prototype.$Message.error("服务异常")
 );
 
 export default instance

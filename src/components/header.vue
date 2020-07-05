@@ -11,8 +11,8 @@
                         </div>
                    </div>
 
-                   <Login v-if="!userInfo.login"/>
-                   <LoggedIn v-if="userInfo.login"/>
+                   <Login v-if="!userInfo.user_name"/>
+                   <LoggedIn v-if="userInfo.user_name"/>
                 </div>
                 
             </i-col>
@@ -29,8 +29,8 @@
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
-                    <Login v-if="!userInfo.login"/>
-                    <LoggedIn v-if="userInfo.login"/>
+                    <Login v-if="!userInfo.user_name"/>
+                    <LoggedIn v-if="userInfo.user_name"/>
                 </div>
             </i-col>
         </Row>

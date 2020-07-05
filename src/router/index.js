@@ -40,7 +40,7 @@ const routes = [
 const router = new VueRoute({
     // 配置路由和组件之间的应用关系
     routes,
-    mode: 'history',
+    mode: 'hash',
     linkActiveClass: 'active'
 })
 
