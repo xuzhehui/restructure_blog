@@ -4,7 +4,7 @@
             <Button class="limit" size='small' type="primary" ghost @click="showHeader_modal(1)">登录</Button>
             <Button class="limit" size='small' type="primary" ghost @click="showHeader_modal(2)">注册</Button>
         </div>
-        <Modal :title='type == 1 ? "用户登录" : "用户注册"' v-model="modal_flag" :width='400' @on-visible-change='visibleModal'>
+        <Modal scrollable :title='type == 1 ? "用户登录" : "用户注册"' v-model="modal_flag" :width='400' @on-visible-change='visibleModal'>
             <Form ref='formParams' :model="formParams" :rules="ruleParams">
                 <FormItem prop="user">
                     <Input type="text" v-model="formParams.user" placeholder="username">

@@ -30,7 +30,7 @@ export default {
                     {
                         title: 'This is title 1',
                         description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
+                        avatar: 'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1561220502,3761876494&fm=26&gp=0.jpg',
                         content: 'This is the content, this is the content, this is the content, this is the content.'
                     },
                     {
