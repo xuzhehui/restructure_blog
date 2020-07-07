@@ -12,14 +12,14 @@
                     </Input>
                 </FormItem>
                 <FormItem prop='password'>
-                    <Input type="text" v-model="formParams.password" placeholder="password">
+                    <Input type="password" v-model="formParams.password" placeholder="password">
                         <Icon type="md-key" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
             </Form>
 
             <p v-if="type == 2">已有账号<a @click="type=1">去登陆？</a></p>
-            <div slot="footer" class='modal-footer'><Button type="primary" long @click="handleSubmit('formParams')">{{type == 1 ? '登录' : '注册'}}</Button></div>
+            <div slot="footer" class='modal-footer'><Button :loading="loading" type="primary" long @click="handleSubmit('formParams')">{{type == 1 ? '登录' : '注册'}}</Button></div>
         </Modal>
     </div>
 </template>
@@ -41,7 +41,8 @@ export default {
                 password:[
                     {required:true,message: '请输入密码',trigger:'blur'}
                 ],
-            }
+            },
+            loading:false
         }
     },
     computed:{
@@ -64,9 +65,11 @@ export default {
             }
         },
         userLog(user,type){//type 1:登录 2:注册
+            this.loading = true
             let url = type == 1 ? '/api/user/login' : '/api/user/regisit'
             this.axios.post(url,{user_name:user.user,pass_word:user.password})
             .then(r=>{
+                this.loading = false
                 if(r.success){
                     this.$Message.success(r.message);
                     sessionStorage.setItem('userInfo',JSON.stringify(r.data));

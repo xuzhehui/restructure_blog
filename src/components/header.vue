@@ -56,7 +56,7 @@ export default {
         ...mapState(['userInfo'])
     },
     mounted(){
-        console.log(this.userInfo)
+
     },
     methods:{
         tag_click(item){
