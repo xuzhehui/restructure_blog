@@ -4,7 +4,7 @@
         <Dropdown trigger="click" @on-click='dropItemTap'>
             <span class='logined-span'>欢迎<a>{{userInfo.user_name}}</a></span>
             <DropdownMenu slot="list">
-                <DropdownItem :name='index' v-for="(item,index) of serverList" :key="index">
+                <DropdownItem :name='item.id' v-for="(item,index) of serverList" :key="index">
                     <Icon :type="item.icon" />
                     <span>{{item.title}}</span>
                 </DropdownItem>
@@ -31,10 +31,10 @@ export default {
     data(){
         return {
             serverList:[
-                {title:'发布管理',icon:'md-construct'},
-                {title:'更换头像',icon:'md-images'},
-                {title:'修改密码',icon:'md-key'},
-                {title:'退出登录',icon:'md-log-out'},
+                {title:'发布管理',icon:'md-construct',id:0},
+                {title:'更换头像',icon:'md-images',id:1},
+                {title:'修改密码',icon:'md-key',id:2},
+                {title:'退出登录',icon:'md-log-out',id:3},
             ],
             showPassWord:false,
             passInfo:{
@@ -63,7 +63,7 @@ export default {
             handler(news,old){
                 console.log(1)
                 if(news.type == 99){
-                    this.serverList.unshift({title:'用户管理',icon:'md-key'})
+                    this.serverList.unshift({title:'用户管理',icon:'md-key',id:4})
                 }
             },
             immediate: true
@@ -113,14 +113,13 @@ export default {
             this.handleSubmit('formParams')
         },
         dropItemTap(e){
-            e == 0 ? (()=>{})() 
+            e == 0 ? (()=>{this.$router.push({name:'ArticleManage'})})() 
             : (e == 1 ? (()=>{})() 
-            : ( e == 2 ? (()=>{
-                this.replacePassword()
-            })() 
-            : (()=>{
-                this.loginOut()
-            })()))
+            : (e == 2 ? (()=>{this.replacePassword()})()
+            : (e == 3 ? (()=>{this.loginOut()})() 
+            : (e == 4 ? (()=>{this.$router.push({name:'Usermanage'})})() 
+            : '')) 
+            ))
         }
     }
 }

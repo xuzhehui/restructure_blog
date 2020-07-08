@@ -32,6 +32,18 @@ const routes = [
         name:'Resume',
         meta:{index:4},
         component: resolve => require(['@/view/resume'], resolve),
+    },
+    {
+        path:'/usermanage',
+        name:'Usermanage',
+        meta:{index:4},
+        component: resolve => require(['@/view/userManger'], resolve),
+    },
+    {
+        path:'/articlemanage',
+        name:'ArticleManage',
+        meta:{index:4},
+        component: resolve => require(['@/view/articleManage'], resolve),
     }
 
 ]
