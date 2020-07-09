@@ -61,7 +61,6 @@ export default {
         '$store.state.userInfo':{
             deep:true,
             handler(news,old){
-                console.log(1)
                 if(news.type == 99){
                     this.serverList.unshift({title:'用户管理',icon:'md-key',id:4})
                 }

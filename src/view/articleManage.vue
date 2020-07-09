@@ -15,8 +15,9 @@
                                 <FormItem label='文章描述'><Input :autosize="true" type="textarea" placeholder="请用一段文字来描述您即将发布的文章" v-model="articleInfo.description"/></FormItem>
                             </Form>
                         </div>
-                        <mavon-editor v-model="articleInfo.content"></mavon-editor>
+                        <mavon-editor v-highlight  :ishljs="true" v-model="articleInfo.content" @save='save'></mavon-editor>
                         <div class='publish-setup'>
+                            <Button @click="showTemplate">预览</Button>
                             <Button @click="publishArticle(2)">保存</Button>
                             <Button @click="publishArticle(1)">发布</Button>
                         </div>
@@ -25,7 +26,7 @@
                 <TabPane name='2' label="已发布">
                     <div class='published-content'>
                         <List item-layout="vertical">
-                            <ListItem v-for="item in publishedData" :key="item.title">
+                            <ListItem v-for="item in publishedData" :key="item.id">
                                 <ListItemMeta :avatar="item.avatar" :title="item.title" :description="item.description" />
                                 <p class="article-content" @click="setclick(item)">{{ item.content }}</p>
                                 <template slot="action">
@@ -38,7 +39,24 @@
                         </List>
                     </div>
                 </TabPane>
-                <TabPane name='3' label="未发布">标签三的内容</TabPane>
+                <TabPane name='3' label="未发布">
+                    <div class="unpublished">
+                        <List item-layout="vertical">
+                            <ListItem v-for="item in unpublishedData" :key="item.id">
+                                <ListItemMeta :avatar="item.avatar" :title="item.title" :description="item.description" />
+                                <p class="article-content" @click="setclick(item)">{{ item.content }}</p>
+                                <template slot="action">
+                                    <li><Icon type="md-star" />123</li>
+                                    <li><Icon type="md-thumbs-up" />234</li>
+                                    <li><Icon type="md-chatboxes" />345</li>
+                                    <li>发布</li>
+                                    <li>修改</li>
+                                    <li>删除</li>
+                                </template>
+                            </ListItem>
+                        </List>
+                    </div>
+                </TabPane>
                 <TabPane name='4'  v-if="userInfo.type==99" label="添加分类">
                     <div class='tags'>
                         <Tag @on-close='removeLabel(item)' v-for=" item in tags" :key="item.id" :color="item.color" closable>{{item.name}}</Tag>
@@ -58,6 +76,13 @@
                     </div>
                 </TabPane>
             </Tabs>
+            <Modal title='预览' v-model="showPreview" scrollable>
+                <div>
+                    <p>{{articleInfo.title}}</p>
+                    <p>{{articleInfo.description}}</p>
+                    <div v-highlight v-html="articleInfo.content"></div>
+                </div>
+            </Modal>
         </div>
     </div>
 </template>
@@ -81,13 +106,15 @@ export default {
                 type:null,
             },
             publishedData:[],//已发布文章列表
-            tags:[],//已有分类列表
+            unpublishedData:[],//未发布文章列表
+            tags:[],//分类列表
             labelType:['default','primary','success','error','magenta','warning','red','volcano','orange','gold','yellow','lime','green','cyan','blue','geekblue','purple'],
             labelInfo:{
                 color:'',
                 name:''
             },
             showLabel:false,
+            showPreview:false,
         }
     },
     components:{mavonEditor},
@@ -97,11 +124,17 @@ export default {
     methods:{
         checkTabs(name){
             if(name == 2){
-                this.get_published()
+                this.get_published(1)
+            }
+            if(name == 3){
+                this.get_published(2)
             }
             if(name == 4){
                 this.getLabels()
             }
+        },
+        save(value,render){
+            this.articleInfo.content = render;
         },
         publishArticle(type){
             this.articleInfo.type = type;
@@ -112,11 +145,12 @@ export default {
                 }
             })
         },
-        get_published(){
-            this.axios('/api/article/getlist?type=1')
+        get_published(type){
+            console.log(type)
+            this.axios(`/api/article/getlist?type=${type}`)
             .then(r=>{
                 if(r.success){
-                    this.publishedData = r.data;
+                    type == 1 ? this.publishedData = r.data : this.unpublishedData = r.data;
                 }
             })
         },
@@ -147,6 +181,10 @@ export default {
                 }
             })
         },
+        showTemplate(){
+            this.showPreview = true;
+
+        }
     },
     computed:{
         ...mapState(['userInfo'])
@@ -165,6 +203,7 @@ export default {
 .label-footer{display: flex;justify-content: center;}
 .publish-setup{display: flex;justify-content: space-around;padding:20px;}
 .published-content{padding:10px;}
+.unpublished{padding:10px;}
 </style>
 
 <style lang="scss">

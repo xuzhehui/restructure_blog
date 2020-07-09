@@ -9,6 +9,16 @@ import router from './router/index'
 // import iview  style
 import 'view-design/dist/styles/iview.css';
 import axios from './axios/index'
+
+import hljs from 'highlight.js' //导入代码高亮文件
+import 'highlight.js/styles/googlecode.css' 
+
+Vue.directive('highlight',function (el) {
+  let highlight = el.querySelectorAll('pre code');
+  highlight.forEach((block)=>{
+      hljs.highlightBlock(block)
+  })
+})
 Vue.prototype.axios = axios
 
 
