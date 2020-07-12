@@ -1,7 +1,7 @@
 <template>
     <div class="center">
         <div class="container">
-            <Tabs size="small" @on-click='checkTabs'>
+            <Tabs size="small" @on-click='checkTabs' v-model="tabIndex">
                 <TabPane name='1' label="发布文章">
                     <div class='publish-article'>
                         <div>
@@ -16,8 +16,8 @@
                             </Form>
                         </div>
                         <mavon-editor v-highlight  :ishljs="true" v-model="articleInfo.content" @save='save'></mavon-editor>
+                        <Alert style="margin:10px 0;">温馨提示:文章编写完毕请 ctrl + s 或者 点击一下富文本编辑器上的保存</Alert>
                         <div class='publish-setup'>
-                            <Button @click="showTemplate">预览</Button>
                             <Button @click="publishArticle(2)">保存</Button>
                             <Button @click="publishArticle(1)">发布</Button>
                         </div>
@@ -33,7 +33,7 @@
                                     <li><Icon type="md-star" /> 123</li>
                                     <li><Icon type="md-thumbs-up" /> 234</li>
                                     <li><Icon type="md-chatboxes" /> 345</li>
-                                    <li>撤回</li>
+                                    <li @click="recall(item,publishedData,2)">撤回</li>
                                 </template>
                             </ListItem>
                         </List>
@@ -49,9 +49,9 @@
                                     <li><Icon type="md-star" />123</li>
                                     <li><Icon type="md-thumbs-up" />234</li>
                                     <li><Icon type="md-chatboxes" />345</li>
-                                    <li>发布</li>
-                                    <li>修改</li>
-                                    <li>删除</li>
+                                    <li @click="recall(item,unpublishedData,1)">发布</li>
+                                    <li @click="replaceArticle(item)">修改</li>
+                                    <li @click="recall(item,unpublishedData,0)">删除</li>
                                 </template>
                             </ListItem>
                         </List>
@@ -76,13 +76,6 @@
                     </div>
                 </TabPane>
             </Tabs>
-            <Modal title='预览' v-model="showPreview" scrollable>
-                <div>
-                    <p>{{articleInfo.title}}</p>
-                    <p>{{articleInfo.description}}</p>
-                    <div v-highlight v-html="articleInfo.content"></div>
-                </div>
-            </Modal>
         </div>
     </div>
 </template>
@@ -94,6 +87,7 @@ import 'mavon-editor/dist/css/index.css'
 export default {
     data(){
         return {
+            tabIndex:'1',
             articles:[],//文章列表
             articleInfo:{
                 title:'',
@@ -114,7 +108,6 @@ export default {
                 name:''
             },
             showLabel:false,
-            showPreview:false,
         }
     },
     components:{mavonEditor},
@@ -146,7 +139,6 @@ export default {
             })
         },
         get_published(type){
-            console.log(type)
             this.axios(`/api/article/getlist?type=${type}`)
             .then(r=>{
                 if(r.success){
@@ -181,9 +173,20 @@ export default {
                 }
             })
         },
-        showTemplate(){
-            this.showPreview = true;
 
+        recall(item,array,type){//2撤回  1发布  0删除
+            this.axios.post('/api/article/check',{id:item.id,type:type})
+            .then(res=>{
+                if(res.success){
+                    this.$Message.success(res.message)
+                    let index = array.findIndex(v=>v.id==item.id)
+                    array.splice(index,1)
+                }
+            })
+        },
+        replaceArticle(item){
+            this.tabIndex = '1'
+            this.articleInfo = item;
         }
     },
     computed:{

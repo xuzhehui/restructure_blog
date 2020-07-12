@@ -7,13 +7,13 @@
                     <p class="article-content" @click="setclick(item)">{{ item.content }}</p>
                     <template slot="action">
                         <li>
-                            <Icon type="md-star" /> 123
+                            <Icon type="md-star" /> {{item.collect}}
                         </li>
                         <li>
-                            <Icon type="md-thumbs-up" /> 234
+                            <Icon type="md-thumbs-up" /> {{item.thumbs_up}}
                         </li>
                         <li>
-                            <Icon type="md-chatboxes" /> 345
+                            <Icon type="md-chatboxes" /> {{item.comments}}
                         </li>
                     </template>
                 </ListItem>
@@ -26,32 +26,24 @@
 export default {
     data(){
         return {
-            data: [
-                    {
-                        title: 'This is title 1',
-                        description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1561220502,3761876494&fm=26&gp=0.jpg',
-                        content: 'This is the content, this is the content, this is the content, this is the content.'
-                    },
-                    {
-                        title: 'This is title 2',
-                        description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                        content: 'This is the content, this is the content, this is the content, this is the content.'
-                    },
-                    {
-                        title: 'This is title 3',
-                        description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                        content: 'This is the content, this is the content, this is the content, this is the content.'
-                    }
-                ],
-            
+            data: [],
         }
+    },
+    created(){
+        this.initData()
     },
     methods: {
         setclick(e){
             console.log(e)
+        },
+       
+        initData(){
+            this.axios('/api/article/getlist?type=1')
+            .then(res=>{
+                if(res.success){
+                    this.data = res.data;
+                }
+            })
         }
     },
     
